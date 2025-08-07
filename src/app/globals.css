@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+@import "tailwindcss";
+
+* {
+  font-family: "Lexend", serif;
+}
+
+select, input, textarea {
+  outline: none;
+}
+
+.just-validate-error-label {
+  font-size: 12px;
+}
+
+.filepond--credits {
+  display: none;
+}
