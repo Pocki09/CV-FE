@@ -3,9 +3,10 @@ import { Editor } from "@tinymce/tinymce-react";
 
 export const editor = (props: { 
     editorRef: any ,
-    value?: string
+    value?: string,
+    id?: string
 }) => {
-  const { editorRef, value = ""} = props;
+  const { editorRef, value = "", id=""} = props;
   return (
     <>
       <Editor
@@ -41,6 +42,7 @@ export const editor = (props: {
             "removeformat | help",
           images_upload_url: `${process.env.NEXT_PUBLIC_API_URL}/upload/image`,
         }}
+        id = {id}
       />
     </>
   );
