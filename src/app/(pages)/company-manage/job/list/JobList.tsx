@@ -1,6 +1,8 @@
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import { ButtonDelete } from "@/app/components/button/ButtonDelete";
 import { workingForm } from "@/config/workingForm";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -29,6 +31,10 @@ export const JobList = () => {
   const handlePagination = (event: any) => {
     const value = event.target.value;
     setPage(parseInt(value));
+  };
+
+  const handleDeleteSuccess = (deleteId: string) => {
+    setJobList((prev) => prev.filter((job) => job.id !== deleteId));
   };
 
   return (
@@ -120,12 +126,11 @@ export const JobList = () => {
                 >
                   Sửa
                 </Link>
-                <Link
-                  href="#"
-                  className="bg-[#FF0000] rounded-[4px] font-[400] text-[14px] text-white inline-block py-[8px] px-[20px]"
-                >
-                  Xóa
-                </Link>
+                <ButtonDelete
+                  api={`${process.env.NEXT_PUBLIC_API_URL}/company/job/delete/${item.id}`}
+                  id={item.id}
+                  onDeleteSuccess={handleDeleteSuccess}
+                />
               </div>
             </div>
           );
