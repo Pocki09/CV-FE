@@ -2,26 +2,43 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { CardJobItem } from "@/app/components/card/CardJobItem";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const SearchContainer = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const language = searchParams.get("language") || "";
   const city = searchParams.get("city") || "";
   const company = searchParams.get("company") || "";
   const keyword = searchParams.get("keyword") || "";
+  const position = searchParams.get("position") || "";
   const [jobList, setJobList] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/search?language=${language}&city=${city}&company=${company}&keyword=${keyword}`)
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/search?language=${language}&city=${city}&company=${company}&keyword=${keyword}&position=${position}`
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.code == "success") {
           setJobList(data.jobs);
         }
       });
-  }, [language, city, company, keyword]);
+  }, [language, city, company, keyword, position]);
+
+  const handleFilterPosition = (event: any) => {
+    const value = event.target.value;
+
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (value) {
+      params.set("position", value);
+    } else {
+      params.delete("position");
+    }
+    router.push(`?${params.toString()}`);
+  };
 
   return (
     <>
@@ -29,7 +46,9 @@ export const SearchContainer = () => {
         <div className="container mx-auto px-[16px]">
           <h2 className="font-[700] text-[28px] text-[#121212] mb-[30px]">
             {jobList.length} việc làm{" "}
-            <span className="text-[#0088FF]">{language} {city} {company} {keyword}</span>
+            <span className="text-[#0088FF]">
+              {language} {city} {company} {keyword} {position}
+            </span>
           </h2>
 
           <div
@@ -39,16 +58,18 @@ export const SearchContainer = () => {
             }}
           >
             <select
+              onChange={handleFilterPosition}
               name=""
               className="border border-[#DEDEDE] rounded-[20px] h-[36px] px-[18px] font-[400] text-[16px] text-[#414042]"
+              defaultValue={position}
             >
               <option value="">Cấp bậc</option>
-              <option value="">Intern</option>
-              <option value="">Fresher</option>
-              <option value="">Junior</option>
-              <option value="">Middle</option>
-              <option value="">Senior</option>
-              <option value="">Manager</option>
+              <option value="Intern">Intern</option>
+              <option value="Fresher">Fresher</option>
+              <option value="Junior">Junior</option>
+              <option value="Middle">Middle</option>
+              <option value="Senior">Senior</option>
+              <option value="Manager">Manager</option>
             </select>
             <select
               name=""
