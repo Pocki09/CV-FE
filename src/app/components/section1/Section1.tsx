@@ -8,6 +8,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 export const Section1 = () => {
   const searchParams = useSearchParams();
   const city = searchParams.get("city") || "";
+  const keyword = searchParams.get("keyword") || "";
   const router = useRouter();
 
   const handleSearch = (event: any) => {
@@ -43,6 +44,7 @@ export const Section1 = () => {
               <option value="Đà Nẵng">Đà Nẵng</option>
             </select>
             <input
+              defaultValue={keyword}
               type="text"
               name="keyword"
               placeholder="Nhập từ khoá..."
