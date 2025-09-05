@@ -8,18 +8,19 @@ import { useEffect, useState } from "react";
 export const SearchContainer = () => {
   const searchParams = useSearchParams();
   const language = searchParams.get("language") || "";
-  const [jobList, setJobList] = useState<any[]>([]);
   const city = searchParams.get("city") || "";
+  const company = searchParams.get("company") || "";
+  const [jobList, setJobList] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/search?language=${language}&city=${city}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/search?language=${language}&city=${city}&company=${company}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.code == "success") {
           setJobList(data.jobs);
         }
       });
-  }, [language, city]);
+  }, [language, city, company]);
 
   return (
     <>
@@ -27,7 +28,7 @@ export const SearchContainer = () => {
         <div className="container mx-auto px-[16px]">
           <h2 className="font-[700] text-[28px] text-[#121212] mb-[30px]">
             {jobList.length} việc làm{" "}
-            <span className="text-[#0088FF]">{language} {city}</span>
+            <span className="text-[#0088FF]">{language} {city} {company}</span>
           </h2>
 
           <div
