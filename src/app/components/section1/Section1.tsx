@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 export const Section1 = () => {
+  const searchParams = useSearchParams();
+  const city = searchParams.get("city") || "";
   const router = useRouter();
 
   const handleSearch = (event: any) => {
@@ -33,10 +36,11 @@ export const Section1 = () => {
             <select
               name="city"
               className="bg-white md:w-[240px] w-[100%] h-[56px] rounded-[4px] px-[20px] font-[500] text-[16px] text-[#121212]"
+              defaultValue={city}
             >
+              <option value="">Tất cả thành phố</option>
               <option value="Hà Nội">Hà Nội</option>
               <option value="Đà Nẵng">Đà Nẵng</option>
-              <option value="Hồ Chí Minh">Hồ Chí Minh</option>
             </select>
             <input
               type="text"
