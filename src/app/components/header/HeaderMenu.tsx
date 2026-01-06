@@ -136,7 +136,7 @@ export const HeaderMenu = (props: { showMenu: boolean }) => {
             </ul>
           </li>
           <li className="inline-flex lg:w-auto w-full items-center lg:justify-start justify-between lg:p-0 p-[10px] gap-x-[8px]">
-            <Link href="#" className="font-[600] text-[16px] text-white">
+            <Link href="/company/list" className="font-[600] text-[16px] text-white">
               Top Công Ty IT
             </Link>
             <FaAngleDown className="text-white text-[16px]" />

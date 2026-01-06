@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Editor } from "@tinymce/tinymce-react";
 
-export const editor = (props: { 
-    editorRef: any ,
-    value?: string,
-    id?: string
+export const EditorMCE = (props: {
+  editorRef: any,
+  value?: string,
+  id?: string
 }) => {
-  const { editorRef, value = "", id=""} = props;
+  const { editorRef, value = "", id = "" } = props;
   return (
     <>
       <Editor
@@ -42,7 +42,7 @@ export const editor = (props: {
             "removeformat | help",
           images_upload_url: `${process.env.NEXT_PUBLIC_API_URL}/upload/image`,
         }}
-        id = {id}
+        id={id}
       />
     </>
   );

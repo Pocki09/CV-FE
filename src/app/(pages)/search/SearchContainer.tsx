@@ -16,6 +16,7 @@ export const SearchContainer = () => {
   const workingForm = searchParams.get("workingForm") || "";
   const page = searchParams.get("page") || "";
   const [totalPage, setTotalPage] = useState();
+  const [totalRecord, setTotalRecord] = useState();
   const [jobList, setJobList] = useState<any[]>([]);
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export const SearchContainer = () => {
         if (data.code == "success") {
           setJobList(data.jobs);
           setTotalPage(data.totalPage);
+          setTotalRecord(data.totalRecord);
         }
       });
   }, [language, city, company, keyword, position, workingForm, page]);
@@ -77,7 +79,9 @@ export const SearchContainer = () => {
       <div className="py-[60px]">
         <div className="container mx-auto px-[16px]">
           <h2 className="font-[700] text-[28px] text-[#121212] mb-[30px]">
-            {jobList.length} việc làm{" "}
+            {totalRecord && (
+              <>{totalRecord} việc làm</>
+            )}
             <span className="text-[#0088FF]">
               {language} {city} {company} {keyword}
             </span>

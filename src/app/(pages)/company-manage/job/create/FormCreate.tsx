@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { editor } from "@/app/components/editor/editor";
+import { EditorMCE } from "@/app/components/editor/editor";
 import JustValidate from "just-validate";
 import { useEffect, useRef, useState } from "react";
 import { FilePond, registerPlugin } from "react-filepond";
@@ -101,143 +101,103 @@ export const FormCreate = () => {
 
   return (
     <>
-      <form
-        id="createForm"
-        onSubmit={handleSubmit}
-        action=""
-        className="grid sm:grid-cols-2 grid-cols-1 gap-x-[20px] gap-y-[15px]"
-      >
+      <Toaster richColors position="top-right" />
+      <form id="createForm" action="" onSubmit={handleSubmit} className="grid sm:grid-cols-2 grid-cols-1 gap-x-[20px] gap-y-[15px]">
         <div className="sm:col-span-2">
-          <label
-            htmlFor="title"
-            className="block font-[500] text-[14px] text-black mb-[5px]"
-          >
+          <label htmlFor="title" className="block font-[500] text-[14px] text-black mb-[5px]">
             Tên công việc *
           </label>
-          <input
-            type="text"
-            name="title"
-            id="title"
+          <input 
+            type="text" 
+            name="title" 
+            id="title" 
             className="w-[100%] h-[46px] border border-[#DEDEDE] rounded-[4px] py-[14px] px-[20px] font-[500] text-[14px] text-black"
           />
         </div>
         <div className="">
-          <label
-            htmlFor="salaryMin"
-            className="block font-[500] text-[14px] text-black mb-[5px]"
-          >
+          <label htmlFor="salaryMin" className="block font-[500] text-[14px] text-black mb-[5px]">
             Mức lương tối thiểu ($)
           </label>
-          <input
-            type="number"
-            name="salaryMin"
-            id="salaryMin"
+          <input 
+            type="number" 
+            name="salaryMin" 
+            id="salaryMin" 
             className="w-[100%] h-[46px] border border-[#DEDEDE] rounded-[4px] py-[14px] px-[20px] font-[500] text-[14px] text-black"
           />
         </div>
         <div className="">
-          <label
-            htmlFor="salaryMax"
-            className="block font-[500] text-[14px] text-black mb-[5px]"
-          >
+          <label htmlFor="salaryMax" className="block font-[500] text-[14px] text-black mb-[5px]">
             Mức lương tối đa ($)
           </label>
-          <input
-            type="number"
-            name="salaryMax"
-            id="salaryMax"
+          <input 
+            type="number" 
+            name="salaryMax" 
+            id="salaryMax" 
             className="w-[100%] h-[46px] border border-[#DEDEDE] rounded-[4px] py-[14px] px-[20px] font-[500] text-[14px] text-black"
           />
         </div>
         <div className="">
-          <label
-            htmlFor="position"
-            className="block font-[500] text-[14px] text-black mb-[5px]"
-          >
+          <label htmlFor="position" className="block font-[500] text-[14px] text-black mb-[5px]">
             Cấp bậc *
           </label>
-          <select
-            name=""
-            id="position"
+          <select 
+            name="position" 
+            id="position" 
             className="w-[100%] h-[46px] border border-[#DEDEDE] rounded-[4px] py-[14px] px-[20px] font-[500] text-[14px] text-black"
           >
-            <option value="">Intern</option>
-            <option value="">Fresher</option>
-            <option value="">Junior</option>
-            <option value="">Middle</option>
-            <option value="">Senior</option>
-            <option value="">Manager</option>
+            <option value="Intern">Intern</option>
+            <option value="Fresher">Fresher</option>
+            <option value="Junior">Junior</option>
+            <option value="Middle">Middle</option>
+            <option value="Senior">Senior</option>
+            <option value="Manager">Manager</option>
           </select>
         </div>
         <div className="">
-          <label
-            htmlFor="workingForm"
-            className="block font-[500] text-[14px] text-black mb-[5px]"
-          >
+          <label htmlFor="workingForm" className="block font-[500] text-[14px] text-black mb-[5px]">
             Hình thức làm việc *
           </label>
-          <select
-            name=""
-            id="workingForm"
+          <select 
+            name="workingForm" 
+            id="workingForm" 
             className="w-[100%] h-[46px] border border-[#DEDEDE] rounded-[4px] py-[14px] px-[20px] font-[500] text-[14px] text-black"
           >
-            {workingForm.map((item, index) => (
-              <option key={index} value={item.value}>
-                {item.label}
-              </option>
-            ))}
+            <option value="office">Tại văn phòng</option>
+            <option value="remote">Làm từ xa</option>
+            <option value="flexible">Linh hoạt</option>
           </select>
         </div>
         <div className="sm:col-span-2">
-          <label
-            htmlFor="technologies"
-            className="block font-[500] text-[14px] text-black mb-[5px]"
-          >
+          <label htmlFor="technologies" className="block font-[500] text-[14px] text-black mb-[5px]">
             Các công nghệ
           </label>
-          <input
-            type="text"
-            name=""
-            id="technologies"
+          <input 
+            type="text" 
+            name="technologies" 
+            id="technologies" 
             className="w-[100%] h-[46px] border border-[#DEDEDE] rounded-[4px] py-[14px] px-[20px] font-[500] text-[14px] text-black"
           />
         </div>
         <div className="sm:col-span-2">
-          <label
-            htmlFor="images"
-            className="block font-[500] text-[14px] text-black mb-[5px]"
-          >
-            Danh sách ảnh *
+          <label htmlFor="images" className="block font-[500] text-[14px] text-black mb-[5px]">
+            Danh sách ảnh
           </label>
-
           <FilePond
             name="images"
-            allowMultiple={true}
+            allowMultiple={true} // Cho phép chọn nhiều file
+            allowRemove={true} // Cho phép xóa ảnh
             labelIdle="+"
-            acceptedFileTypes={["image/*"]}
+            acceptedFileTypes={['image/*']}
             files={images}
             onupdatefiles={setImages}
             maxFiles={8}
           />
         </div>
         <div className="sm:col-span-2">
-          <label
-            htmlFor="description"
-            className="block font-[500] text-[14px] text-black mb-[5px]"
-          >
+          <label htmlFor="description" className="block font-[500] text-[14px] text-black mb-[5px]">
             Mô tả chi tiết
           </label>
-
-          {editor({
-            editorRef: editorRef,
-            id: "description",
-          })}
-
-          <textarea
-            name=""
-            id="description"
-            className="w-[100%] h-[350px] border border-[#DEDEDE] rounded-[4px] py-[14px] px-[20px] font-[500] text-[14px] text-black"
-          ></textarea>
+          <EditorMCE editorRef={editorRef} id="description" />
         </div>
         <div className="sm:col-span-2">
           <button className="bg-[#0088FF] rounded-[4px] h-[48px] px-[20px] font-[700] text-[16px] text-white">
@@ -246,5 +206,6 @@ export const FormCreate = () => {
         </div>
       </form>
     </>
-  );
+  )
+
 };
