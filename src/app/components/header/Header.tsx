@@ -14,7 +14,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="bg-[#000071] py-[15px]">
+      <header className="bg-[#000071] py-[15px] relative z-[999]">
         <div className="container mx-auto px-[16px]">
           <div className="flex items-center justify-between">
             <Link href="/" className="text-white font-[800] sm:text-[28px] text-[20px] lg:flex-none flex-1">
