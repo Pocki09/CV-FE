@@ -5,11 +5,14 @@ import { cvStatusList } from "@/config/cvList"
 import { workingFormList } from "@/config/workingForm"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { FaBriefcase, FaCircleCheck, FaEnvelope, FaEye, FaPhone, FaUserTie } from "react-icons/fa6"
 import { CVItem } from "./CVItem"
 
 export const CVList = () => {
   const [listCV, setListCV] = useState<any[]>([]);
+
+  const handleDeleteSuccess = (deleteId: string) => {
+    setListCV(prev => prev.filter(cv => cv.id !== deleteId));
+  }
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/company/cv/list`, {
@@ -28,7 +31,11 @@ export const CVList = () => {
     <>
       <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[20px]">
         {listCV.map(item => (
-          <CVItem key={item.id} item={item} />
+          <CVItem
+            key={item.id}
+            item={item}
+            onDeleteSuccess={handleDeleteSuccess}
+          />
         ))}
       </div>
 

@@ -5,11 +5,13 @@ import Link from "next/link"
 import { workingFormList } from "@/config/workingForm";
 import { cvStatusList } from "@/config/cvList";
 import { useState } from "react";
+import { ButtonDelete } from "@/app/components/button/ButtonDelete";
 
 export const CVItem = (props: {
-    item: any
+    item: any,
+    onDeleteSuccess: (id: string) => void
 }) => {
-    const { item } = props;
+    const { item, onDeleteSuccess } = props;
     const workingForm = workingFormList.find(work => work.value === item.jobWorkingForm)?.label;
     const statusDefault = cvStatusList.find(itemStatus => itemStatus.value === item.status);
     const [status, setStatus] = useState(statusDefault);
@@ -103,9 +105,11 @@ export const CVItem = (props: {
                             Từ chối
                         </button>
                     )}
-                    <Link href="#" className="bg-[#FF0000] rounded-[4px] font-[400] text-[14px] text-white inline-block py-[8px] px-[20px]">
-                        Xóa
-                    </Link>
+                    <ButtonDelete
+                        api={`${process.env.NEXT_PUBLIC_API_URL}/company/cv/delete/${item.id}`}
+                        id={item.id}
+                        onDeleteSuccess={onDeleteSuccess}
+                    />
                 </div>
             </div>
         </>
